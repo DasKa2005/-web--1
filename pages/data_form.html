@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/form-styles.css">
+    <meta charset="UTF-8">
+    <title>Формы. Отправляем данные на сервер</title>
+</head>
+
+<style>
+    .container {
+        margin-top: 100px;
+    }
+</style>
+
+<body>
+<nav class="navbar">
+    <div class="navbar-main-container">
+        <div class="navbar-sub-container">
+            <div class="navbar-logo">
+            </div>
+            <div class="navbar-links">
+                <a href="index.html">Главная</a>
+                <a href="lists.html">Списки</a>
+                <a href="infa.html">Информация</a>
+                <a href="table.html">Таблица</a>
+                <a href="change_letters.html">Паспорт</a>
+                <a href="data_form.html" class="active">Формы</a>
+                <a href="algorithm.html">Решение алгоритмической задачи</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <h3>Формы. Отправляем данные на сервер</h3>
+    <form action="https://www.bing.com/search?" id="UserEnter" name="UserEnter" target="_blank" enctype="multipart/form-data">
+        <p>Для поисковика:<input type="hidden"  name="q" value="search"></p>
+        <p>Фамилия: <input type="text" name="last_name" size="20"></p>
+        <p>Возраст: <input type="number" name="age" size="20"></p>
+        <p>Место проживания:
+            <input type="radio" name="place" value="Moscow">Москва
+            <input type="radio" name="place" value="Nizhny" checked>Нижний
+        </p>
+
+        <p>Стаж работы:
+            <input type="checkbox" name="experience" value="10" checked>Маркетологом - 10
+            <input type="checkbox" name="experience" value="20" checked>Экономистом - 20
+            <input type="checkbox" name="experience" value="30" checked>Менеджером - 30
+        </p>
+
+        <p>Знание английского:
+            <select name="languages">
+                <option value="Владею свободно">Владею свободно</option>
+                <option value="Читаю и перевожу со словарем">Читаю и перевожу со словарем</option>
+            </select>
+        </p>
+
+        <p>Дополнительная информация:
+            <textarea cols="80" rows="4" name="textarea" ></textarea>
+        </p>
+
+        <p>Дата: <input type="date" name="user_date" ></p>
+        <p>Пароль: <input type="password" name="password" size="9" ></p>
+
+        <p>Название файла: <input type="text" name="000_file_name" size="30"></p>
+
+        <p>Тип записи в файл:
+            <select name="010_mode">
+                <option value="a">a - дозаписать в файл</option>
+                <option value="w">w - очистить файл и записать в файл</option>
+            </select>
+        </p>
+
+        <p>Добавить файл: <input type="file" name="file_input" id="file_input" onchange="displayFileName()"></p>
+        <div class="file-info" id="file_info"></div>
+
+        <p>
+            <input type="hidden" name="function" value="page">
+            <input type="hidden" name="page_id" value="3">
+        </p>
+
+        <p>
+            <input type="reset" name="Reset" value="Обновить">
+            <input type="submit" name="submit" value="Отправить">
+            <input type="button" value="Автозаполнение" onclick="autoFill()">
+        </p>
+    </form>
+</div>
+
+<script>
+  function displayFileName() {
+    const fileInput = document.getElementById('file_input');
+    const fileInfo = document.getElementById('file_info');
+    const audioPlayer = document.getElementById('audio_player');
+    const audioSource = document.getElementById('audio_source');
+
+    if (fileInput.files.length > 0) {
+      const fileName = fileInput.files[0].name;
+      fileInfo.textContent = `Загруженный файл: ${fileName}`;
+      audioSource.src = URL.createObjectURL(fileInput.files[0]);
+      audioPlayer.style.display = 'block';
+      audioPlayer.load();
+    } else {
+      fileInfo.textContent = '';
+      audioPlayer.style.display = 'none';
+    }
+  }
+
+  function autoFill() {
+    document.forms['UserEnter']['last_name'].value = 'Иванов';
+    document.forms['UserEnter']['age'].value = '30';
+    document.forms['UserEnter']['place'][0].checked = true; // Москва
+    document.forms['UserEnter']['experience'][0].checked = true; // Маркетологом - 10
+    document.forms['UserEnter']['languages'].value = 'Владею свободно';
+    document.forms['UserEnter']['textarea'].value = 'Пример дополнительной информации.';
+    document.forms['UserEnter']['user_date'].value = '2024-11-04'; // текущая дата
+    document.forms['UserEnter']['password'].value = 'secret'; // пример пароля
+    document.forms['UserEnter']['000_file_name'].value = 'example_file.txt';
+    document.forms['UserEnter']['010_mode'].value = 'a'; // выбор типа записи
+  }
+</script>
+</body>
+</html>
